@@ -286,7 +286,7 @@ parseSanitizeArgs(const Driver &D, const llvm::opt::ArgList &Args,
               Add & AlwaysOut & ~DiagnosedAlwaysOutViolations) {
         if (DiagnoseErrors) {
           SanitizerSet SetToDiagnose;
-          SetToDiagnose.Mask |= KindsToDiagnose;
+          SetToDiagnose.Mask |= expandSanitizerGroups(KindsToDiagnose);
           D.Diag(diag::err_drv_unsupported_option_argument)
               << Arg->getSpelling() << toString(SetToDiagnose);
           DiagnosedAlwaysOutViolations |= KindsToDiagnose;
@@ -302,7 +302,7 @@ parseSanitizeArgs(const Driver &D, const llvm::opt::ArgList &Args,
               Remove & AlwaysIn & ~DiagnosedAlwaysInViolations) {
         if (DiagnoseErrors) {
           SanitizerSet SetToDiagnose;
-          SetToDiagnose.Mask |= KindsToDiagnose;
+          SetToDiagnose.Mask |= expandSanitizerGroups(KindsToDiagnose);
           D.Diag(diag::err_drv_unsupported_option_argument)
               << Arg->getSpelling() << toString(SetToDiagnose);
           DiagnosedAlwaysInViolations |= KindsToDiagnose;
